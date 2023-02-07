@@ -1,26 +1,29 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: ${props => props.theme.bgColor};
 `;
 const H1 = styled.h1`
   color: ${props => props.theme.textColor};
 `;
 
-//  bgColor: "white",
-//   textColor: "black",
-//   btnColor: "tomato",
+interface DummyProps {
+  text: string;
+  active?: boolean;
+}
+
+function Dummy({ text, active = false }: DummyProps) {
+  return <H1>{text}</H1>;
+}
 
 function App() {
+  const onClick = (event: React.FormEvent<HTMLButtonElement>) => {};
   return (
     <Container>
-      <H1>Hello React.js</H1>
+      <Dummy active text="hello" />
+      <form>
+        <button onClick={onClick}>click me</button>
+      </form>
     </Container>
   );
 }
