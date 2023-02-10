@@ -12,6 +12,7 @@ import Chart from "./Chart";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import { Helmet } from "react-helmet-async";
+import { HomeBtn } from "../Components/HomeBtn";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -155,10 +156,10 @@ function Coin() {
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<priceData>(
     ["tickers", coinId],
-    () => fetchCoinTickers(coinId),
-    {
-      refetchInterval: 5000,
-    }
+    () => fetchCoinTickers(coinId)
+    // {
+    //   refetchInterval: 5000,
+    // }
   );
   const loading = infoLoading || tickersLoading;
   return (
@@ -173,6 +174,7 @@ function Coin() {
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
       </Header>
+      <HomeBtn />
       {loading ? (
         <Loader>Loading...</Loader>
       ) : (
@@ -188,7 +190,7 @@ function Coin() {
             </OverviewItem>
             <OverviewItem>
               <span>Price:</span>
-              <span>{tickersData?.quotes.USD.price}</span>
+              <span>{tickersData?.quotes?.USD?.price}</span>
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>
@@ -213,7 +215,7 @@ function Coin() {
 
           <Switch>
             <Route path={`/:coinId/price`}>
-              <Price />
+              <Price coinId={coinId} />
             </Route>
             <Route path={`/:coinId/chart`}>
               <Chart coinId={coinId} />
