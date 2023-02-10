@@ -12,6 +12,7 @@ import Chart from "./Chart";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import { Helmet } from "react-helmet-async";
+import { HomeBtn } from "../Components/HomeBtn";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -173,6 +174,7 @@ function Coin() {
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
       </Header>
+      <HomeBtn />
       {loading ? (
         <Loader>Loading...</Loader>
       ) : (
