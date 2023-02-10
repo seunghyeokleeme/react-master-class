@@ -6,9 +6,10 @@ import Error404 from "../Components/Error404";
 
 interface PriceProps {
   coinId: string;
+  darkMode: boolean;
 }
 
-function Price({ coinId }: PriceProps) {
+function Price({ coinId, darkMode }: PriceProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(
     ["ohlcv-price", coinId],
     () => fetchCoinHistory(coinId),
@@ -23,6 +24,9 @@ function Price({ coinId }: PriceProps) {
           type="candlestick"
           height={350}
           options={{
+            theme: {
+              mode: `${darkMode ? "dark" : "light"}`,
+            },
             chart: {
               type: "candlestick",
               height: 350,
@@ -36,19 +40,8 @@ function Price({ coinId }: PriceProps) {
             },
             xaxis: {
               type: "datetime",
-
-              labels: {
-                style: {
-                  colors: "inherit",
-                },
-              },
             },
             yaxis: {
-              labels: {
-                style: {
-                  colors: "inherit",
-                },
-              },
               tooltip: {
                 enabled: true,
               },

@@ -5,6 +5,7 @@ import Error404 from "../Components/Error404";
 
 interface ChartProps {
   coinId: string;
+  darkMode: boolean;
 }
 
 export interface IHistorical {
@@ -18,7 +19,7 @@ export interface IHistorical {
   market_cap: number;
 }
 
-function Chart({ coinId }: ChartProps) {
+function Chart({ coinId, darkMode }: ChartProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(
     ["ohlcv", coinId],
     () => fetchCoinHistory(coinId),
@@ -40,7 +41,7 @@ function Chart({ coinId }: ChartProps) {
           ]}
           options={{
             theme: {
-              mode: "dark",
+              mode: `${darkMode ? "dark" : "light"}`,
             },
             chart: {
               height: 300,
