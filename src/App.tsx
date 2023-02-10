@@ -1,7 +1,10 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { HelmetProvider } from "react-helmet-async";
 import Router from "./Router";
+import { useState } from "react";
+import SwitchBtn from "./Components/SwitchBtn";
+import { darkTheme, lightTheme } from "./theme";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -69,14 +72,19 @@ a{
 `;
 
 function App() {
+  const [darkMode, setDarkMode] = useState(true);
+  const handleClick = () => {
+    setDarkMode(!darkMode);
+  };
   return (
-    <>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <GlobalStyle />
+      <SwitchBtn onClick={handleClick} />
       <HelmetProvider>
         <Router />
       </HelmetProvider>
       <ReactQueryDevtools initialIsOpen={true} />
-    </>
+    </ThemeProvider>
   );
 }
 
