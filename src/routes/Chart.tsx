@@ -6,7 +6,7 @@ interface ChartProps {
   coinId: string;
 }
 
-interface IHistorical {
+export interface IHistorical {
   time_open: number;
   time_close: number;
   open: string;
