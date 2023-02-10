@@ -72,7 +72,7 @@ a{
 `;
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
   const handleClick = () => {
     setDarkMode(!darkMode);
   };
@@ -81,7 +81,7 @@ function App() {
       <GlobalStyle />
       <SwitchBtn onClick={handleClick} />
       <HelmetProvider>
-        <Router />
+        <Router darkMode={darkMode} />
       </HelmetProvider>
       <ReactQueryDevtools initialIsOpen={true} />
     </ThemeProvider>
