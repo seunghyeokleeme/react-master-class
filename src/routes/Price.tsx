@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { fetchCoinHistory } from "../api";
 import { IHistorical } from "./Chart";
 import ApexChart from "react-apexcharts";
+import Error404 from "../Components/Error404";
 
 interface PriceProps {
   coinId: string;
@@ -17,7 +18,7 @@ function Price({ coinId }: PriceProps) {
     <div>
       {isLoading ? (
         "Loading Chart..."
-      ) : (
+      ) : data?.length ? (
         <ApexChart
           type="candlestick"
           height={350}
@@ -67,15 +68,11 @@ function Price({ coinId }: PriceProps) {
             },
           ]}
         />
+      ) : (
+        <Error404 />
       )}
     </div>
   );
 }
 
-// data: [
-//   {
-//     x: new Date(1538778600000),
-//     y: [6629.81, 6650.5, 6623.04, 6633.33],
-//   },
-// ],
 export default Price;

@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { fetchCoinHistory } from "../api";
 import ApexChart from "react-apexcharts";
+import Error404 from "../Components/Error404";
 
 interface ChartProps {
   coinId: string;
@@ -16,17 +17,19 @@ export interface IHistorical {
   volume: string;
   market_cap: number;
 }
+
 function Chart({ coinId }: ChartProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(
     ["ohlcv", coinId],
     () => fetchCoinHistory(coinId),
     { refetchInterval: 10000 }
   );
+
   return (
     <div>
       {isLoading ? (
         "Loading Chart..."
-      ) : (
+      ) : data?.length ? (
         <ApexChart
           type="line"
           series={[
@@ -77,6 +80,8 @@ function Chart({ coinId }: ChartProps) {
             },
           }}
         />
+      ) : (
+        <Error404 />
       )}
     </div>
   );
